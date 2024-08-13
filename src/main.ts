@@ -20,9 +20,9 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('Escuela de educación especial - API')
+    .setTitle('Mujeres en STEM - API')
     .setDescription(
-      'API para la gestión de los sistemas de la escuela de educación especial.',
+      'API para la gestión de contenido de la web para Mujeres en STEM.',
     )
     .setVersion('1.0')
     .addBearerAuth()
