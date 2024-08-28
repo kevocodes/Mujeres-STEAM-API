@@ -13,21 +13,77 @@ enum Role {
 }
 
 model User {
-  id                       String     @id @default(auto()) @map("_id") @db.ObjectId
-  email                    String     @unique
+  id                       String    @id @default(auto()) @map("_id") @db.ObjectId
+  email                    String    @unique
   name                     String
   lastname                 String
   password                 String
-  role                     Role       @default(CONTENT_MANAGER)
-  
-  emailVerified            Boolean    @default(false)
+  role                     Role      @default(CONTENT_MANAGER)
+  emailVerified            Boolean   @default(false)
   emailVerificationOTP     String?
   emailVerificationExpires DateTime?
-
   resetPasswordToken       String?
-  
-  createdAt                DateTime   @default(now())
-  updatedAt                DateTime   @updatedAt
-  
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime  @updatedAt
+
   @@map("users")
+}
+
+model Summit {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+
+  coordinatorIDs String[]      @db.ObjectId
+  coordinators   Coordinator[] @relation(fields: [coordinatorIDs], references: [id])
+
+  coorganizerIDs String[]      @db.ObjectId
+  coorganizers   Coorganizer[] @relation(fields: [coorganizerIDs], references: [id])
+
+  location  String
+  modality  String
+  date      String
+  startHour String
+  endHour   String
+
+  link String?
+
+  active Boolean @default(false)
+
+  schedule String[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("summits")
+}
+
+model Coordinator {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  fullName String
+  degree   String
+  email    String
+  picture  String
+
+  summitIDs String[] @db.ObjectId
+  summits   Summit[] @relation(fields: [summitIDs], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("coordinators")
+}
+
+model Coorganizer {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  picture String
+  name    String
+
+  summitIDs String[] @db.ObjectId
+  summits   Summit[] @relation(fields: [summitIDs], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("coorganizers")
 }
