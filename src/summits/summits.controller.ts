@@ -39,6 +39,12 @@ export class SummitsController {
   }
 
   @Roles(Role.ADMIN, Role.CONTENT_MANAGER)
+  @Get('active')
+  async getActiveSummit(): Promise<ApiResponse> {
+    return this.summitsService.getActiveSummit();
+  }
+
+  @Roles(Role.ADMIN, Role.CONTENT_MANAGER)
   @Get(':id')
   async getSummitById(
     @Param('id', MongoIdPipe) id: string,

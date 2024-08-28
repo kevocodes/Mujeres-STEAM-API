@@ -145,4 +145,20 @@ export class SummitsService {
       data: summitUpdated,
     };
   }
+
+  async getActiveSummit(): Promise<ApiResponse> {
+    const summit = await this.prismaService.summit.findFirst({
+      where: {
+        active: true,
+      },
+    });
+
+    if (!summit) throw new NotFoundException('No active summit found');
+
+    return {
+      statusCode: 200,
+      message: 'Active summit fetched',
+      data: summit,
+    };
+  }
 }

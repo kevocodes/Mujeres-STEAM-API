@@ -4,6 +4,6 @@ import { SummitsService } from './summits.service';
 
 @Module({
   controllers: [SummitsController],
-  providers: [SummitsService]
+  providers: [SummitsService],
 })
 export class SummitsModule {}
