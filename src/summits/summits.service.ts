@@ -1,5 +1,9 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { ConfigType } from '@nestjs/config';
+import {
+  HttpStatus,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import envConfig from 'src/config/environment/env.config';
 import { PrismaService } from 'src/config/prisma/prisma.service';
 import { CreateSummitDto, UpdateSummitDto } from './dtos/summits.dto';
@@ -9,7 +13,6 @@ import { ApiResponse } from 'src/common/types/response.type';
 export class SummitsService {
   constructor(
     @Inject(envConfig.KEY)
-    private readonly config: ConfigType<typeof envConfig>,
     private readonly prismaService: PrismaService,
   ) {}
 
@@ -19,7 +22,7 @@ export class SummitsService {
     });
 
     return {
-      statusCode: 201,
+      statusCode: HttpStatus.CREATED,
       message: 'Summit created',
       data: summitCreated,
     };
@@ -49,7 +52,7 @@ export class SummitsService {
     if (!summit) throw new NotFoundException('Summit not found');
 
     return {
-      statusCode: 200,
+      statusCode: HttpStatus.OK,
       message: 'Summit fetched',
       data: summit,
     };
@@ -71,7 +74,7 @@ export class SummitsService {
     });
 
     return {
-      statusCode: 200,
+      statusCode: HttpStatus.OK,
       message: 'Summit deleted',
       data: null,
     };
@@ -97,7 +100,7 @@ export class SummitsService {
     });
 
     return {
-      statusCode: 200,
+      statusCode: HttpStatus.OK,
       message: 'Summit updated',
       data: summitUpdated,
     };
@@ -140,7 +143,7 @@ export class SummitsService {
     });
 
     return {
-      statusCode: 200,
+      statusCode: HttpStatus.OK,
       message: 'Summit marked as active',
       data: summitUpdated,
     };
@@ -156,7 +159,7 @@ export class SummitsService {
     if (!summit) throw new NotFoundException('No active summit found');
 
     return {
-      statusCode: 200,
+      statusCode: HttpStatus.OK,
       message: 'Active summit fetched',
       data: summit,
     };

@@ -59,11 +59,12 @@ model Summit {
 }
 
 model Coordinator {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  fullName String
-  degree   String
-  email    String
-  picture  String
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  fullName        String
+  degree          String
+  email           String
+  picture         String
+  picturePublicId String
 
   summitIDs String[] @db.ObjectId
   summits   Summit[] @relation(fields: [summitIDs], references: [id])
@@ -75,9 +76,10 @@ model Coordinator {
 }
 
 model Coorganizer {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  picture String
-  name    String
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  picture         String
+  picturePublicId String
+  name            String
 
   summitIDs String[] @db.ObjectId
   summits   Summit[] @relation(fields: [summitIDs], references: [id])

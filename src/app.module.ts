@@ -9,6 +9,7 @@ import { ConfigType } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { CloudinaryModule } from './config/cloudinary/cloudinary.module';
 import { SummitsModule } from './summits/summits.module';
+import { CoordinatorsModule } from './coordinators/coordinators.module';
 @Module({
   imports: [
     ConfigModule,
@@ -31,6 +32,7 @@ import { SummitsModule } from './summits/summits.module';
     }),
     CloudinaryModule,
     SummitsModule,
+    CoordinatorsModule,
   ],
   providers: [
     {
